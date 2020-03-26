@@ -26,7 +26,7 @@ var connectedUser;
 
 //connecting to our signaling server
 var loc = window.location;
-var conn = new WebSocket('wss://'+loc.hostname+':'+loc.port+'/socket');
+var conn = new WebSocket('wss://randomchatwithstranger.herokuapp.com/socket');
   
 conn.onopen = function () { 
 	   console.log("Connected to the signaling server"); 
