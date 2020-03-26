@@ -112,14 +112,10 @@ function handleLogin(success) {
       //********************** 
       //Starting a peer connection 
       //********************** 
-      //browser support check "ms" vendor function is for IE8
-navigator.getUserMedia = ( navigator.getUserMedia       ||
-                           navigator.webkitGetUserMedia ||
-                           navigator.mozGetUserMedia    ||
-                           navigator.msGetUserMedia );
+     
 
       //getting local video stream 
-      navigator.getUserMedia({ video: true, audio: true }, function (myStream) { 
+      navigator.mozGetUserMedia({ video: true, audio: true }, function (myStream) { 
          stream = myStream; 
 			
        //displaying local video stream on the page 
