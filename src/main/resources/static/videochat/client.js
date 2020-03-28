@@ -115,7 +115,7 @@ function handleLogin(success) {
      
 
       //getting local video stream 
-      navigator.webkitGetUserMedia({ video: true, audio: true }, function (myStream) { 
+      navigator.getUserMedia({ video: true, audio: true }, function (myStream) { 
          stream = myStream; 
 			
        //displaying local video stream on the page 
