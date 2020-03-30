@@ -1,121 +1,134 @@
-
 <!DOCTYPE html>
-<html>
-   <title>RandomVChat</title>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
-   <link rel="shortcut icon" type="image/x-icon" href="images/icon.png" />
-   <link rel="stylesheet" href="/videochat/w3.css">
-   <link rel="stylesheet"
-      href="https://fonts.googleapis.com/css?family=Montserrat">
-   <link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-   <link rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-   <script
-      src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-   <script
-      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-   <link rel="stylesheet" href="/videochat/chat.css" />
-   <body class="w3-black">
-      <!-- Icon Bar (Sidebar - hidden on small screens) -->
-      <nav class="w3-sidebar w3-bar-block w3-small w3-hide-small w3-center">
-         <!-- Avatar image in top left corner -->
-         <!--  <img src="/w3images/avatar_smoke.jpg" style="width:100%"> -->
-         <a href="#photos"
-            class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-            <i
-               class="fa fa-video-camera w3-xxlarge" style="color: green"></i>
-            <p>RANDOM CHAT</p>
-         </a>
-         <a href="#" class="w3-bar-item w3-button w3-padding-large w3-black">
-            <i class="fa fa-home w3-xxlarge"></i>
-            <p>HOME</p>
-         </a>
-         <a href="#about"
-            class="w3-bar-item w3-button w3-padding-large w3-hover-black ">
-            <i
-               class="fa fa-user w3-xxlarge"></i>
-            <p>ABOUT</p>
-         </a>
-         <a href="#contact"
-            class="w3-bar-item w3-button w3-padding-large w3-hover-black">
-            <i
-               class="fa fa-envelope w3-xxlarge"></i>
-            <p>CONTACT</p>
-         </a>
-      </nav>
-      <!-- Navbar on small screens (Hidden on medium and large screens) -->
-      <div class="w3-top w3-hide-large w3-hide-medium" id="myNavbar">
-         <div
-            class="w3-bar w3-black w3-opacity w3-hover-opacity-off w3-center w3-small">
-            <a href="#" class="w3-bar-item w3-button"
-               style="width: 25% !important">HOME</a> <a href="#about"
-               class="w3-bar-item w3-button" style="width: 25% !important">ABOUT</a>
-            <a href="#photos" class="w3-bar-item w3-button"
-               style="width: 25% !important">PHOTOS</a> <a href="#contact"
-               class="w3-bar-item w3-button" style="width: 25% !important">CONTACT</a>
-         </div>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<!-- <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="#">Logo</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+  
+<div class="container-fluid text-center">    
+  <div class="row content">
+    <div class="col-sm-8">
+      <div class="row">
+      	<div class="col-sm-6 video-container"> 
+	    	<svg class="loader stranger_loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 340">
+				 <circle cx="170" cy="170" r="160" stroke="#E2007C"/>
+				 <circle cx="170" cy="170" r="135" stroke="#404041"/>
+				 <circle cx="170" cy="170" r="110" stroke="#E2007C"/>
+				 <circle cx="170" cy="170" r="85" stroke="#404041"/>
+			</svg>
+			<h1 style="font-family: Arial, Helvetica, sans-serif;">Stranger</h1>
+	       <video id="remoteVideo" width="400" poster="videochat/images/video_poster.jpg" autoplay preload="none">
+	  	   </video>
+	    </div>
+	    <div class="col-sm-6 video-container"> 
+	    	<svg class="loader my_loader" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 340">
+				 <circle cx="170" cy="170" r="160" stroke="#E2007C"/>
+				 <circle cx="170" cy="170" r="135" stroke="#404041"/>
+				 <circle cx="170" cy="170" r="110" stroke="#E2007C"/>
+				 <circle cx="170" cy="170" r="85" stroke="#404041"/>
+			</svg>
+			<h1 style="font-family: Arial, Helvetica, sans-serif;">You</h1>
+	       <video id="localVideo" width="400" poster="videochat/images/video_poster.jpg" autoplay preload="none">
+	  		</video>
+	    </div>
       </div>
-      <!-- Page Content -->
-      <div class="w3-padding-large" id="main">
-         <div id="frame">
-            <div id="sidepanel" class="main-container">
-               <div class="video-container">
-                  <div class="responsive-video">
-                     <video id="remoteVideo" autoplay="autoplay"
-                        frameborder="0" webkitAllowFullScreen mozallowfullscreen
-                        allowFullScreen></video>
-                  </div>
-               </div>
-               <div class="video-container" style="margin-top: 20px;">
-                  <div class="responsive-video">
-                     <video id="localVideo" autoplay="autoplay"
-                      frameborder="0" webkitAllowFullScreen
-                        mozallowfullscreen allowFullScreen></video>
-                  </div>
-               </div>
-            </div>
-            <div id="content" class="main-container">
-               <!-- <div class="message-area">
-                  <input type = "email" id = "usernameInput" class = "form-control formgroup" placeholder = "Login" 
-                          required = "" autofocus = ""> 
-                       <button id = "loginBtn" class = "btn btn-lg btn-primary btnblock">
-                          Sign in</button>
-                  <input id = "callToUsernameInput" type = "text"
-                          placeholder = "username to call" /> 
-                       <button id = "callBtn" class = "btn-success btn">Call</button> 
-                       <button id = "hangUpBtn" class = "btn-danger btn">Hang Up</button>	
-                  </div> -->
-              <!--  <div class="contact-profile">
-                  <div class="social-media">
-                     <i class="fa fa-facebook" aria-hidden="true"></i> <i
-                        class="fa fa-twitter" aria-hidden="true"></i> <i
-                        class="fa fa-instagram" aria-hidden="true"></i>
-                  </div>
-               </div> -->
-               <div class="messages">
-                  <button id="randomCallBtn" type="button" class="w3-btn w3-white w3-border w3-border-red w3-round-large btn btn-primary btn-lg btn-block"
-                        style="display: none">Call</button>
-                  <ul class="ul_message">
-                  </ul>
-               </div>
-               <div class="message-input">
-                  <input id="callToUsernameInput" value="s" type="text"
+      <div class="row">
+      	<div class="col-sm-12"> 
+      	    <input id="callToUsernameInput" value="s" type="text"
                      placeholder="username to call" style="display: none" />
-                  <div class="wrap">
-                     <input id="messageInput" type="text"
-                        placeholder="Write your message..." /> 
-                        <!-- <i class="fa fa-paperclip attachment" aria-hidden="true"></i> -->
-                     <button type="submit" id="sendMessBtn" class="submit" onclick='sendMessage()'>
-                     <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                     </button>
+			<button id="randomCallBtn" type="button" class="btn btn-success">MeetUp</button>
+			<button id="hangUpBtn" type="button" class="btn btn-danger">Stop</button>
+      	</div>
+       </div>
+    </div>
+    
+    <div class="col-sm-4 sidenav">
+      <!-- DIRECT CHAT PRIMARY -->
+      <div class="box box-primary direct-chat direct-chat-primary">
+        
+        <div class="box-body">
+          <!-- Conversations are loaded here -->
+          <div class="direct-chat-messages">
+                       
+          </div>
+          <!--/.direct-chat-messages-->
+    
+          <!-- Contacts are loaded here -->
+          <div class="direct-chat-contacts">
+            <ul class="contacts-list">
+              <li>
+                <a href="#">
+                  <img class="contacts-list-img" src="https://bootdey.com/img/Content/user_1.jpg">
+    
+                  <div class="contacts-list-info">
+                        <span class="contacts-list-name">
+                          Count Dracula
+                          <small class="contacts-list-date pull-right">2/28/2015</small>
+                        </span>
+                    <span class="contacts-list-msg">How have you been? I was...</span>
                   </div>
-               </div>
+                  <!-- /.contacts-list-info -->
+                </a>
+              </li>
+              <!-- End Contact Item -->
+            </ul>
+            <!-- /.contatcts-list -->
+          </div>
+          <!-- /.direct-chat-pane -->
+        </div>
+        <!-- /.box-body -->
+        <div class="box-footer">
+            <div class="input-group">
+              <input id="messageInput" type="text" name="message" placeholder="Type Message ..." class="form-control">
+              <span class="input-group-btn">
+                  <button id="sendMessBtn" type="submit" onclick="sendMessage()" class="btn btn-primary btn-flat">Send</button>
+              </span>
             </div>
-         </div>
-      </div>
-      <script src="/videochat/client.js"></script>
-      <!-- END PAGE CONTENT -->
-   </body>
+    </div>
+    
+    
+  <!--/.direct-chat -->
+</div>
+</div>
+    </div>
+  
+ </div>
+<!-- <footer class="container-fluid text-center">
+  <p>Footer Text</p>
+</footer> -->
+<script src="videochat/client.js"></script>
+<script src="videochat/chat.js"></script>
+
+</body>
 </html>
