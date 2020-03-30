@@ -5,7 +5,8 @@
 var loginPage = document.querySelector('#loginPage'); 
 var usernameInput = document.querySelector('#usernameInput'); 
 var loginBtn = document.querySelector('#loginBtn'); 
-
+var stranger_loader = document.querySelector('.stranger_loader');
+var my_loader = document.querySelector('.my_loader');
 var callPage = document.querySelector('#callPage'); 
 var callToUsernameInput = document.querySelector('#callToUsernameInput');
 var callBtn = document.querySelector('#randomCallBtn'); 
@@ -15,6 +16,7 @@ var hangUpBtn = document.querySelector('#hangUpBtn');
   
 var localVideo = document.querySelector('#localVideo'); 
 var remoteVideo = document.querySelector('#remoteVideo'); 
+var defaultRemoteVideo = remoteVideo;
 
 var yourConn; 
 var stream;
@@ -26,8 +28,10 @@ var connectedUser;
 
 //connecting to our signaling server
 var loc = window.location;
-var conn = new WebSocket('ws://'+loc.hostname+'/socket');
-  
+var conn = new WebSocket('ws://'+loc.hostname+':'+loc.port+'/socket');
+
+
+
 conn.onopen = function () { 
 	   console.log("Connected to the signaling server"); 
 	   return login_user();
@@ -35,7 +39,7 @@ conn.onopen = function () {
 
 	function login_user(){
 		name = "s";
-		
+		//alert('kkkkk')
 		   if (name.length > 0) { 
 		      send({ 
 		         type: "login", 
@@ -54,6 +58,8 @@ conn.onmessage = function (msg) {
       case "login": 
          handleLogin(data.success); 
          callBtn.style.display = "block"; 
+         stranger_loader.style.display = "none";
+         my_loader.style.display = "none";
          break; 
       //when somebody wants to call us 
       case "offer": 
@@ -112,11 +118,24 @@ function handleLogin(success) {
       //********************** 
       //Starting a peer connection 
       //********************** 
-     
+	   const hdConstraints = {
+			   video: {width: {min: 1280}, height: {min: 720}}
+			 };
 
+			 navigator.mediaDevices.getUserMedia(hdConstraints).
+			   then((stream) => {video.srcObject = stream});
+
+
+			 const vgaConstraints = {
+			   video: {width: {exact: 640}, height: {exact: 480}}
+			 };
+
+			 navigator.mediaDevices.getUserMedia(vgaConstraints).
+			   then((stream) => {
+				 //video.srcObject = stream});
       //getting local video stream 
-      navigator.getUserMedia({ video: true, audio: true }, function (myStream) { 
-         stream = myStream; 
+//	   navigator.mediaDevices.getUserMedia({ video: true, audio: true }, function (myStream) { 
+//         stream = myStream; 
 			
        //displaying local video stream on the page 
          try {
@@ -171,11 +190,16 @@ function handleLogin(success) {
              message = event.data;
              if($.trim(message) == '') {
          		return false;
-         	}
-         	$('<li class="sent"><img src="http://emilcarlsson.se/assets/mikeross.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
-         	$('.message-input input').val(null);
-         	$('.contact.active .preview').html('<span>You: </span>' + message);
-         	$(".messages").animate({ scrollTop: $(document).height() }, "fast");
+         	 }
+             $(".direct-chat-messages").append('<div class="direct-chat-msg">'
+                     +'<div class="direct-chat-info clearfix">'
+                     +'<span class="direct-chat-name pull-left">Stranger</span>'
+                     +'<span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>'
+                     +'</div>'
+                     +'<img class="direct-chat-img" src="https://bootdey.com/img/Content/user_1.jpg" alt="Message User Image">'
+                     +'<div class="direct-chat-text">'+message
+                     +'</div>'
+                     +'</div>');
          };
 
          dataChannel.onclose = function() {
@@ -245,17 +269,15 @@ function handleCandidate(candidate) {
    
 //hang up 
 hangUpBtn.addEventListener("click", function () { 
-
    send({ 
       type: "leave" 
-   });  
-	
+   });  	
    handleLeave(); 
 });
   
 function handleLeave() { 
    connectedUser = null; 
-   remoteVideo.src = null; 
+   remoteVideo.poster="videochat/images/video_poster.jpg"
 	
    yourConn.close(); 
    yourConn.onicecandidate = null; 
@@ -270,7 +292,23 @@ function sendMessage() {
     if($.trim(sendMess) == '') {
 		return false;
 	}
-	$('<li class="replies"><img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" /><p>' + sendMess + '</p></li>').appendTo($('.messages ul'));
-	$('.contact.active .preview').html('<span>You: </span>' + sendMess);
-	$(".messages").animate({ scrollTop: $(document).height() }, "fast");
+    $(".direct-chat-messages").append('<div class="direct-chat-msg right">'
+            +'<div class="direct-chat-info clearfix">'
+            +'<span class="direct-chat-name pull-left">You</span>'
+            +'<span class="direct-chat-timestamp pull-right">23 Jan 2:00 pm</span>'
+            +'</div>'
+            +'<img class="direct-chat-img" src="https://bootdey.com/img/Content/user_2.jpg" alt="Message User Image">'
+            +'<div class="direct-chat-text">'+sendMess
+            +'</div>'
+            +'</div>');
+//	$('<li class="replies"><img src="http://emilcarlsson.se/assets/harveyspecter.png" alt="" /><p>' + sendMess + '</p></li>').appendTo($('.messages ul'));
+//	$('.contact.active .preview').html('<span>You: </span>' + sendMess);
+	//$(".messages").animate({ scrollTop: $(document).height() }, "fast");
 };
+
+$(document).on('keydown', function(event) {
+    if (event.key == "Escape") {
+       //alert('kkkkk')
+       login_user();
+    }
+});
