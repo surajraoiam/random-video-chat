@@ -28,7 +28,7 @@ var connectedUser;
 
 //connecting to our signaling server
 var loc = window.location;
-var conn = new WebSocket('ws://'+loc.hostname+':'+loc.port+'/socket');
+var conn = new WebSocket('ws://'+loc.hostname+'/socket');
 
 
 
