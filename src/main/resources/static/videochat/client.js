@@ -118,20 +118,14 @@ function handleLogin(success) {
       //********************** 
       //Starting a peer connection 
       //********************** 
-	   const hdConstraints = {
-			   video: {width: {min: 1280}, height: {min: 720}}
-			 };
+	const constraints = {
+	  video: true
+	};
 
-			 navigator.mediaDevices.getUserMedia(hdConstraints).
-			   then((stream) => {video.srcObject = stream});
+	const video = document.querySelector('video');
 
-
-			 const vgaConstraints = {
-			   video: {width: {exact: 640}, height: {exact: 480}}
-			 };
-
-			 navigator.mediaDevices.getUserMedia(vgaConstraints).
-			   then((stream) => {
+	navigator.mediaDevices.getUserMedia(constraints).
+	  then((stream) => {
 				 //video.srcObject = stream});
       //getting local video stream 
 //	   navigator.mediaDevices.getUserMedia({ video: true, audio: true }, function (myStream) { 
